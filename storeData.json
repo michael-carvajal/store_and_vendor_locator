@@ -1,4 +1,4 @@
-const storeData = {
+{
   "1": {
     "name": "1 - MT. KISCO MAVIS",
     "address": "186 N Bedford Road",
@@ -25956,6 +25956,5 @@ const storeData = {
     "county": "",
     "phone": ""
   }
-};
+}
 
-module.exports = storeData;

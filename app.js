@@ -1,5 +1,3 @@
-const stores = require("./storeData")
-
 // Initialize the map
 var map = L.map("map").setView([41.214370549784554, -73.71971866138134], 13); // Default to San Francisco
 
@@ -25,13 +23,17 @@ var vendors = [
   { name: "Vendor 2", location: [34.0522, -118.2437] },
   // Add more vendors as needed
 ];
-// Add all store markers to the map
-for (const [key, data] of Object.entries(stores)) {
-    L.marker(data.location)
-    .addTo(map)
-    .bindPopup(`<b>${data.name}</b><br>Store Number: ${data.storeNumber}`);
-};
-
+// Fetch store data and add markers
+fetch("storeData.json")
+  .then((response) => response.json())
+  .then((stores) => {
+    for (const key in stores) {
+      const store = stores[key];
+      L.marker(store.location)
+        .addTo(map)
+        .bindPopup(`<b>${store.name}</b><br>Store Number: ${key}`);
+    }
+  });
 // Search and display functionality
 document.getElementById("searchButton").addEventListener("click", function () {
   var storeNumber = document.getElementById("storeNumber").value;
