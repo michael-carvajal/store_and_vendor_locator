@@ -1,3 +1,5 @@
+const stores = require("./storeData")
+
 // Initialize the map
 var map = L.map("map").setView([41.214370549784554, -73.71971866138134], 13); // Default to San Francisco
 
@@ -17,29 +19,6 @@ function onMapClick(e) {
 
 map.on("click", onMapClick);
 // Store and vendor data
-var stores = [
-  {
-    storeNumber: "001",
-    name: "Store 1",
-    location: [41.214370549784554, -73.71971866138134],
-  },
-  {
-    storeNumber: "002",
-    name: "Store 2",
-    location: [40.95249237435335, -73.8162849767375],
-  },
-  {
-    storeNumber: "003",
-    name: "Store 3",
-    location: [40.9087151880907, -73.84732219023248],
-  },
-  {
-    storeNumber: "004",
-    name: "Store 4",
-    location: [41.303084615923886, -73.88011559090648],
-  },
-  // Add more stores as needed
-];
 
 var vendors = [
   { name: "Vendor 1", location: [37.8044, -122.2711] },
@@ -47,11 +26,11 @@ var vendors = [
   // Add more vendors as needed
 ];
 // Add all store markers to the map
-stores.forEach((store) => {
-  L.marker(store.location)
+for (const [key, data] of Object.entries(stores)) {
+    L.marker(data.location)
     .addTo(map)
-    .bindPopup(`<b>${store.name}</b><br>Store Number: ${store.storeNumber}`);
-});
+    .bindPopup(`<b>${data.name}</b><br>Store Number: ${data.storeNumber}`);
+};
 
 // Search and display functionality
 document.getElementById("searchButton").addEventListener("click", function () {
