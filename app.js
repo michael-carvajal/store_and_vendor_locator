@@ -8,14 +8,14 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var popup = L.popup();
 
-function onMapClick(e) {
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString())
-    .openOn(map);
-}
+// function onMapClick(e) {
+//   popup
+//     .setLatLng(e.latlng)
+//     .setContent("You clicked the map at " + e.latlng.toString())
+//     .openOn(map);
+// }
 
-map.on("click", onMapClick);
+// map.on("click", onMapClick);
 // Store and vendor data
 
 var vendors = [
@@ -23,10 +23,12 @@ var vendors = [
   { name: "Vendor 2", location: [34.0522, -118.2437] },
   // Add more vendors as needed
 ];
+let storeData;
 // Fetch store data and add markers
 fetch("storeData.json")
   .then((response) => response.json())
   .then((stores) => {
+    storeData = stores;
     for (const key in stores) {
       const store = stores[key];
       L.marker(store.location)
@@ -35,9 +37,10 @@ fetch("storeData.json")
     }
   });
 // Search and display functionality
-document.getElementById("searchButton").addEventListener("click", function () {
+document.getElementById("storeSelect").addEventListener("submit", function (e) {
+  e.preventDefault();
   var storeNumber = document.getElementById("storeNumber").value;
-  var store = stores.find((s) => s.storeNumber === storeNumber);
+  var store = storeData[storeNumber];
 
   if (store) {
     // Center the map on the store location
