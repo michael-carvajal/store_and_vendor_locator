@@ -11,7 +11,7 @@ let tables = document.querySelectorAll("#table tr"); // had to add my own id att
 // }
 const storeMap = {};
 
-for (let i = 1; i < 5; i++) {
+for (let i = 1; i < tables.length; i++) {
   //tables.slice(1)
   const row = tables[i];
   const children = row.children;

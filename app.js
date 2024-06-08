@@ -6,6 +6,16 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
 }).addTo(map);
 
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
 // Store and vendor data
 var stores = [
   { storeNumber: "001", name: "Store 1", location: [37.7749, -122.4194] },
