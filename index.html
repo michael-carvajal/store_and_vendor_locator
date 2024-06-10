@@ -1,49 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tire Locator</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="text-center">Tire Locator</h1>
-          <form class="input-group mb-3" action="submit" id="storeSelect">
-            <input
-              type="text"
-              id="storeNumber"
-              class="form-control"
-              placeholder="Enter Store Number"
-            />
-            <div class="input-group-append">
-              <button class="btn btn-primary" id="searchButton" type="submit">
-                Search
-              </button>
-            </div>
-          </form>
-          <div id="map" style="height: 500px"></div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tire Locator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center">Tire Locator</h1>
+        <form class="input-group mb-3" action="submit" id="storeSelect">
+          <input type="text" id="storeNumber" class="form-control" placeholder="Enter Store Number" />
+          <div class="input-group-append">
+            <button class="btn btn-primary" id="searchButton" type="submit">Search</button>
+          </div>
+        </form>
+        <button class="btn btn-secondary mb-3" id="filterButton">Show Open Stores</button>
+        <div id="map" style="height: 500px"></div>
       </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- Custom JS -->
-    <script src="app.js"></script>
-  </body>
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Custom JS -->
+  <script src="app.js"></script>
+</body>
 </html>

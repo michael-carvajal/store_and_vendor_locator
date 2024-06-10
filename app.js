@@ -1,5 +1,5 @@
 // Initialize the map
-var map = L.map("map").setView([41.214370549784554, -73.71971866138134], 13); // Default to San Francisco
+var map = L.map("map").setView([41.214370549784554, -73.71971866138134], 13);
 
 // Add OpenStreetMap tiles
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -8,34 +8,37 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var popup = L.popup();
 
-// function onMapClick(e) {
-//   popup
-//     .setLatLng(e.latlng)
-//     .setContent("You clicked the map at " + e.latlng.toString())
-//     .openOn(map);
-// }
-
-// map.on("click", onMapClick);
-// Store and vendor data
-
 var vendors = [
   { name: "Vendor 1", location: [37.8044, -122.2711] },
   { name: "Vendor 2", location: [34.0522, -118.2437] },
   // Add more vendors as needed
 ];
+
 let storeData;
+let storeMarkers = [];
+
 // Fetch store data and add markers
 fetch("storeData.json")
   .then((response) => response.json())
   .then((stores) => {
     storeData = stores;
-    for (const key in stores) {
-      const store = stores[key];
-      L.marker(store.location)
-        .addTo(map)
-        .bindPopup(`<b>${store.name}</b><br>Store Number: ${key}`);
-    }
+    addStoreMarkers(stores);
   });
+
+function addStoreMarkers(stores) {
+  // Remove existing markers
+  storeMarkers.forEach((marker) => map.removeLayer(marker));
+  storeMarkers = [];
+
+  for (const key in stores) {
+    const store = stores[key];
+    const marker = L.marker(store.location)
+      .addTo(map)
+      .bindPopup(`<b>${store.name}</b><br>Store Number: ${key}`);
+    storeMarkers.push(marker);
+  }
+}
+
 // Search and display functionality
 document.getElementById("storeSelect").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -47,10 +50,10 @@ document.getElementById("storeSelect").addEventListener("submit", function (e) {
     map.setView(store.location, 13);
 
     // Add a marker for the store
-    L.marker(store.location)
-      .addTo(map)
-      .bindPopup(`<b>${store.name}</b><br>Store Number: ${store.storeNumber}`)
-      .openPopup();
+    L.popup()
+      .setLatLng(store.location)
+      .setContent(`<b>${store.name}</b><br>Store Number: ${storeNumber}`)
+      .openOn(map);
 
     // Add markers for the vendors
     vendors.forEach((vendor) => {
@@ -59,4 +62,15 @@ document.getElementById("storeSelect").addEventListener("submit", function (e) {
   } else {
     alert("Store not found");
   }
+});
+
+// Filter stores to show only open ones
+document.getElementById("filterButton").addEventListener("click", function () {
+  const openStores = {};
+  for (const key in storeData) {
+    if (!storeData[key].name.toLowerCase().includes("closed")) {
+      openStores[key] = storeData[key];
+    }
+  }
+  addStoreMarkers(openStores);
 });
